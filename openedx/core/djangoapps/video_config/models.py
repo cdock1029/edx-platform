@@ -181,3 +181,8 @@ class MigrationEnqueuedCourse(TimeStampedModel):
     """
     course_id = CourseKeyField(db_index=True, primary_key=True, max_length=255)
     command_run = PositiveIntegerField(default=0)
+
+    def __unicode__(self):
+        return u'MigrationEnqueuedCourse: ID={course_id}, Run={command_run}'.format(
+            course_id=self.course_id, command_run=self.command_run
+        )
