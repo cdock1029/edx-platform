@@ -952,6 +952,13 @@ class CapaMixin(ScorableXBlockMixin, CapaFields):
         self.lcp.update_score(score_msg, queuekey)
         self.set_state_from_lcp()
         self.set_score(self.score_from_lcp())
+        log.info(
+            "EDUCATOR-3030: publishing grade for course_id %s | block_id %s | user_id %s "
+            "while updating score",
+            self.course_id,
+            self.location,
+            self.runtime.user_id
+        )
         self.publish_grade()
 
         return dict()  # No AJAX return is needed
@@ -1263,6 +1270,13 @@ class CapaMixin(ScorableXBlockMixin, CapaFields):
                 return {'success': msg}
             raise
 
+        log.info(
+            "EDUCATOR-3030: publishing grade for course_id %s | block_id %s | user_id %s "
+            "while submitting problem",
+            self.course_id,
+            self.location,
+            self.runtime.user_id
+        )
         published_grade = self.publish_grade()
 
         # success = correct if ALL questions in this problem are correct
